@@ -1,6 +1,7 @@
 package com.yanrunfa.lurui.serialgen.core;
 
 import com.yanrunfa.lurui.serialgen.core.fragment.SerialFragment;
+import com.yanrunfa.lurui.serialgen.core.fragment.StreamFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,11 @@ import java.util.List;
 public class SerialNumber {
 
     private List<SerialFragment> fragments;
+
+    /**
+     * 每个序列号有且仅有一个流水号字段
+     */
+    private StreamFragment streamFragment;
 
     public String getValue() {
         StringBuilder value = new StringBuilder();
@@ -29,6 +35,14 @@ public class SerialNumber {
         if (fragments == null) {
             fragments = new ArrayList<>();
         }
+        if (fragment instanceof StreamFragment) {
+            streamFragment = (StreamFragment) fragment;
+        }
         fragments.add(fragment);
+    }
+
+
+    public List<SerialFragment> getFragments() {
+        return fragments;
     }
 }
